@@ -1,26 +1,40 @@
 require "bowling"
 
 describe "ボウリングのスコア計算" do
+    before do
+       @game = Bowling.new 
+    end
     describe "全体の合計" do
         context "全ての投球がガターだった場合" do
             it "0になること" do
-                @game = Bowling.new
+                add_many_scores(20,0)
+                expect(@game.total_score0).to eq 0
+                # @game = Bowling.new
                 
-                20.times do
-                    @game.add_score(0)
-                end
-                expect(@game.total_score).to eq 0
+                # 20.times do
+                #     @game.add_score(0)
+                # end
+                # expect(@game.total_score).to eq 0
              end
         end
         context "全ての投球で1ピンずつ倒した場合" do
             it "20になること" do
-                @game = Bowling.new
-                
-                20.times do
-                   @game.add_score(1) 
-                end
+                add_many_scores(20,1)
                 expect(@game.total_score).to eq 20
+                
+                # @game = Bowling.new
+                
+                # 20.times do
+                #   @game.add_score(1) 
+                # end
+                # expect(@game.total_score).to eq 20
             end
         end
     end
 end
+private
+    def add_many_scores(count,pins)
+        count.times do
+            @game.add_score(pins)
+        end
+    end
